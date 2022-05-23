@@ -1,5 +1,13 @@
 # django路由学习
 
+## 路由匹配
+### 1.简单的匹配
+如果只是简单的匹配整数、字符串，可以用以下方法
+```python
+# str和int是类型，city和year是变量名
+path(r"get_url_param/(<str:city>))/(int:year)",view.get_url_param),
+
+```
 ## 获取前端传递参数的几种方式
 
 ### 1、url参数获取
@@ -10,16 +18,18 @@
 
 ```python
 # 路由设置 -- 位置参数，既([a-z])为第一个接受的参数，(\d{4})是第二个接受的参数，必须要用（）括起来
-url(r"get_url_param/([a-z])/(\d{4})",view.get_url_param),
+re_path(r"get_url_param/([a-z]+)/(\d{4})",view.get_url_param),
 
 # view设置获取,对于位置参数变量名可以随便写都能获取到，这里的city获取到的就是([a-z])
 def get_url_param(request,city,year):
     print(city,year)
 
 # 路由设置 -- 关键字参数，?P指定这个正则的参数名字，view配置的接收参数名必须和这个一样，位置可以不一样
-url(r"get_url_param/(?P<city>[a-z])/(?P<year>\d{4})",view.get_url_param),
+re_path(r"get_url_param/(?P<city>[a-z]+)/(?P<year>\d{4})",view.get_url_param),
 
 # view配置
 def get_url_param(request,city,year):
     print(city,year)
 ```
+
+
